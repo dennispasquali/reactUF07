@@ -9,6 +9,9 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
 import PostList from './pages/PostList';
+import ListaUtenti from './pages/ListaUtenti';
+import FotoList from './pages/FotoList';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
  // <div>
     //   <h1 className="titoli">ciao</h1>
@@ -19,38 +22,54 @@ import PostList from './pages/PostList';
     //   <Timer></Timer>
 
     // </div>
+
+const client=new QueryClient({
+  defaultOptions: {
+      queries: {
+        retryDelay: 1000,
+        retry: 4
+      }
+  }
+});
 function App() {
 
   return (
-    <>
 
-    
+<>
+  <QueryClientProvider client={client}>
     <BrowserRouter>
-      <nav>
-        <Link to='/home'>Home</Link>
-        <Link to='/dashboard'>DashBoard</Link>
-        <Link to='/login'>Login</Link>
-        <Link to='/profile'>Profile</Link>
-        <Link to='/posts'>Posts</Link>
-      </nav>
-      <Timer></Timer>
-      <Routes>
-          <Route path='/home' element={<Home/>}/>
-          <Route path='/dashboard' element={<Dashboard/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/profile/:userName' element={<Profile/>}/>
-          <Route path='/profile' element={<Profile/>}/>
-          <Route path='/posts' element={<PostList/>}></Route>
-          <Route path='*' element={<PageNotFound/>}></Route>
-        </Routes>
+    <nav>
+      <Link to='/home'>Home</Link>
+      <Link to='/dashboard'>DashBoard</Link>
+      <Link to='/login'>Login</Link>
+      <Link to='/profile'>Profile</Link>
+      <Link to='/posts'>Posts</Link>
+      <Link to='/utenti'>Lista Utenti</Link>
+      <Link to="/fotoList">Lista Foto</Link>
+    </nav>
+    <Timer></Timer>
+    <Routes>
+        <Route path='/home' element={<Home/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/profile/:userName' element={<Profile/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/posts' element={<PostList/>}></Route>
+        <Route path='/utenti' element={<ListaUtenti/>}></Route>
+        <Route path='/fotoList' element={<FotoList/>}></Route>
+        <Route path='*' element={<PageNotFound/>}></Route>
+      </Routes>
 
 
 
 
     </BrowserRouter>
-  
-    
-    </>
+
+  </QueryClientProvider>
+
+
+
+</>
     
    
 
